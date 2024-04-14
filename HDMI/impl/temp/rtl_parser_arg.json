@@ -1,0 +1,29 @@
+{
+ "Device" : "GW2A-18C",
+ "Files" : [
+  {
+   "Path" : "F:/Project/Sipeed/Tang_Primer/Project/HDMI/src/dvi_tx/dvi_tx.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "F:/Project/Sipeed/Tang_Primer/Project/HDMI/src/gowin_rpll/TMDS_rPLL.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "F:/Project/Sipeed/Tang_Primer/Project/HDMI/src/testpattern.v",
+   "Type" : "verilog"
+  },
+  {
+   "Path" : "F:/Project/Sipeed/Tang_Primer/Project/HDMI/src/video_top.v",
+   "Type" : "verilog"
+  }
+ ],
+ "IncludePath" : [
+
+ ],
+ "LoopLimit" : 2000,
+ "ResultFile" : "F:/Project/Sipeed/Tang_Primer/Project/HDMI/impl/temp/rtl_parser.result",
+ "Top" : "video_top",
+ "VerilogStd" : "sysv",
+ "VhdlStd" : "vhdl_93"
+}

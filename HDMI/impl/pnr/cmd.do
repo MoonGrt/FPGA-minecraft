@@ -1,0 +1,12 @@
+-d F:\Project\Sipeed\Tang_Primer\Project\HDMI\impl\gwsynthesis\dk_video.vg
+-p GW2A-18C-PBGA256-8
+-pn GW2A-LV18PG256C8/I7
+-cst F:\Project\Sipeed\Tang_Primer\Project\HDMI\src\dk_video.cst
+-cfg F:\Project\Sipeed\Tang_Primer\Project\HDMI\impl\pnr\device.cfg
+-sdc F:\Project\Sipeed\Tang_Primer\Project\HDMI\src\dk_video.sdc
+-bit
+-tr
+-ph
+-timing
+-correct_hold 1
+-route_maxfan 23
