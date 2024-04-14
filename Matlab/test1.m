@@ -50,11 +50,27 @@ vp_target(2) = fix(vp_origin(2) + vp_u(2) * fragment_uv(1) * LOOKAT_REL_FAC / AN
 vp_target(3) = fix(vp_origin(3) + vp_u(3) * fragment_uv(1) * LOOKAT_REL_FAC / ANGLE_RADIUS - vp_v(3) * fragment_uv(2) * LOOKAT_REL_FAC / ANGLE_RADIUS);
 % 计算起始点、结束点
 start_p = p_pos;
-end_p = [vp_target(1), vp_target(2), vp_target(1)];
+end_p = vp_target;
 % 画出线段
-plot3([start_p(1), end_p(1)], [start_p(2), end_p(2)], ...
-    [start_p(3), end_p(3)], 'k-', 'LineWidth', 2);
+plot3([start_p(1), end_p(1)], [start_p(2), end_p(2)], [start_p(3), end_p(3)], 'k-', 'LineWidth', 2);
 
+% 
+block_p = fix(p_pos / TEXTURE_RES);
+hit_P = p_pos;
+scatter3(block_p(1)*TEXTURE_RES, block_p(2)*TEXTURE_RES, block_p(3)*TEXTURE_RES, 10, 'filled', 'MarkerFaceColor', 'b');
+next_block_p = [0, 0, 0];
+for i=1:1:3
+    if end_p(i) == start_p(i)
+        next_block_p(i) = block_p(i);
+    elseif end_p(i) > start_p(i)
+        next_block_p(i) = block_p(i) + 1;
+    else
+        next_block_p(i) = block_p(i) - 1;
+    end
+end
+edge = [next_block_p(1)*TEXTURE_RES, next_block_p(2)*TEXTURE_RES, next_block_p(3)*TEXTURE_RES];
+scatter3(edge(1), edge(2), edge(3), 10, 'filled', 'MarkerFaceColor', 'b');
+delta = edge - start_p;
 
 
 hold off;

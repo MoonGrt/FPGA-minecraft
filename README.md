@@ -15,7 +15,7 @@
 	</a>
 <h3 align="center">FPGA_minecraft</h3>
 	<p align="center">
-	
+	 
 	<br />
 	<a href="https://github.com/MoonGrt/FPGA_minecraft"><strong>Explore the docs »</strong></a>
 	<br />
@@ -50,40 +50,9 @@
   ├─ LICENSE
   ├─ README.md
   ├─ /HDMI/
-  │ └─ /src/
-  │   ├─ dk_video.cst
-  │   ├─ dk_video.sdc
-  │   ├─ testpattern.v
-  │   ├─ video_top.v
-  │   ├─ /dvi_tx/
-  │   │ ├─ dvi_tx.ipc
-  │   │ ├─ dvi_tx.v
-  │   │ └─ dvi_tx.vo
-  │   └─ /gowin_rpll/
-  │     ├─ TMDS_rPLL.ipc
-  │     ├─ TMDS_rPLL.mod
-  │     └─ TMDS_rPLL.v
   ├─ /images/
+  ├─ /Matlab/
   ├─ /minecraft_moon/
-  │ └─ /minecraft_moon.srcs/
-  │   ├─ /sim_1/
-  │   │ └─ /new/
-  │   │   └─ test.v
-  │   └─ /sources_1/
-  │     └─ /new/
-  │       ├─ angle_relative.v
-  │       ├─ angle_to_coord.v
-  │       ├─ constants.vh
-  │       ├─ disp_buf.v
-  │       ├─ freq_div.v
-  │       ├─ inventory_register.v
-  │       ├─ player_station.v
-  │       ├─ pll_entr_tb.v
-  │       ├─ ppl_entry.v
-  │       ├─ ppl_proc.v
-  │       ├─ top.v
-  │       ├─ viewport_params.v
-  │       └─ viewport_scanner.v
   └─ /Tool/
 
 ```
