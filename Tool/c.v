@@ -8,22 +8,39 @@ module ppl_entry (
     output is_preparing, is_eof,
     output [1:0] towards_h,
     input next_pixel_pplout,
-    input [DISP_RAM_ADDR_RADIX-1:0] pixel_addr_pplout,
+    input [`DISP_RAM_ADDR_RADIX-1:0] pixel_addr_pplout,
     input [31:0] to_color_acc_pplout,
-    input [2:0] to_block_p_pplout,
     input [1:0] to_dir_pplout,
-    input [2:0] to_hit_p_pplout,
-    input [2:0] start_p_pplout,
-    input [2:0] end_p_pplout,
+    input [2:0] to_block_p_pplout,
+    input [31:0] to_block_p_pplout_x,
+    input [31:0] to_block_p_pplout_y,
+    input [31:0] to_block_p_pplout_z,
+    input [31:0] to_hit_p_pplout_x,
+    input [31:0] to_hit_p_pplout_y,
+    input [31:0] to_hit_p_pplout_z,
+    input [31:0] start_p_pplout_x,
+    input [31:0] start_p_pplout_y,
+    input [31:0] start_p_pplout_z,
+    input [31:0] end_p_pplout_x,
+    input [31:0] end_p_pplout_y,
+    input [31:0] end_p_pplout_z,
     input to_is_behind_pplout,
     output idle,
-    output [DISP_RAM_ADDR_RADIX-1:0] pixel_addr,
+    output [`DISP_RAM_ADDR_RADIX-1:0] pixel_addr,
     output [31:0] color_acc,
     output [1:0] from_dir,
-    output [2:0] block_p,
-    output [2:0] hit_p,
-    output [2:0] start_p,
-    output [2:0] end_p,
+    output [31:0] block_p_x,
+    output [31:0] block_p_y,
+    output [31:0] block_p_z,
+    output [31:0] hit_p_x,
+    output [31:0] hit_p_y,
+    output [31:0] hit_p_z,
+    output [31:0] start_p_x,
+    output [31:0] start_p_y,
+    output [31:0] start_p_z,
+    output [31:0] end_p_x,
+    output [31:0] end_p_y,
+    output [31:0] end_p_z,
     output is_behind
 );
 
@@ -34,12 +51,12 @@ reg [2:0] prepare_cnt, prepare_cnt_next;
 wire is_eof_i, is_preparing_i;
 wire [31:0] fragment_uv_x, fragment_uv_y;
 
-wire [31:0] p_angle_x, p_angle_y;
-wire [31:0] vp_origin_x,vp_origin_y, vp_origin_z;
-wire [31:0] vp_u_x, vp_u_y, vp_u_z;
-wire [31:0] vp_v_x, vp_v_y, vp_v_z;
-wire [31:0] vp_target_x, vp_target_y, vp_target_z;
-wire [31:0] towards_h_x, towards_h_y;
+
+wire signed [31:0] vp_origin_x,vp_origin_y, vp_origin_z;
+wire signed [31:0] vp_u_x, vp_u_y, vp_u_z;
+wire signed [31:0] vp_v_x, vp_v_y, vp_v_z;
+wire signed [31:0] vp_target_x, vp_target_y, vp_target_z;
+wire signed [31:0] towards_h_x, towards_h_y;
 
 
 
@@ -54,7 +71,7 @@ always @(posedge clk_ppl or posedge rst) begin
     end
 end
 
-assign is_eof_i = (pixel_addr_pplout == EOF_ADDR) & next_pixel_pplout;
+assign is_eof_i = (pixel_addr_pplout == `EOF_ADDR) & next_pixel_pplout;
 assign is_eof = is_eof_i;
 
 assign is_preparing_i = (state != 3'b010); // RUNNING
@@ -119,19 +136,29 @@ viewport_params vp_param (
     .towards_h_y    (towards_h_y)
 );
 
-assign vp_target_x = vp_origin_x + vp_u_x * fragment_uv_x * LOOKAT_REL_FAC / ANGLE_RADIUS - vp_v_x * fragment_uv_y * LOOKAT_REL_FAC / ANGLE_RADIUS;
-assign vp_target_y = vp_origin_y + vp_u_y * fragment_uv_x * LOOKAT_REL_FAC / ANGLE_RADIUS - vp_v_y * fragment_uv_y * LOOKAT_REL_FAC / ANGLE_RADIUS;
-assign vp_target_z = vp_origin_z + vp_u_z * fragment_uv_x * LOOKAT_REL_FAC / ANGLE_RADIUS - vp_v_z * fragment_uv_y * LOOKAT_REL_FAC / ANGLE_RADIUS;
+assign vp_target_x = vp_origin_x + vp_u_x * fragment_uv_x * `LOOKAT_REL_FAC / `ANGLE_RADIUS - vp_v_x * fragment_uv_y * `LOOKAT_REL_FAC / `ANGLE_RADIUS;
+assign vp_target_y = vp_origin_y + vp_u_y * fragment_uv_x * `LOOKAT_REL_FAC / `ANGLE_RADIUS - vp_v_y * fragment_uv_y * `LOOKAT_REL_FAC / `ANGLE_RADIUS;
+assign vp_target_z = vp_origin_z + vp_u_z * fragment_uv_x * `LOOKAT_REL_FAC / `ANGLE_RADIUS - vp_v_z * fragment_uv_y * `LOOKAT_REL_FAC / `ANGLE_RADIUS;
 
 // Output Multiplexer
 assign idle = 1'b0;
-assign pixel_addr = next_pixel_pplout ? fragment_uv_y * H_REAL + fragment_uv_x : pixel_addr_pplout;
+assign pixel_addr = next_pixel_pplout ? fragment_uv_y * `H_REAL + fragment_uv_x : pixel_addr_pplout;
 assign color_acc = next_pixel_pplout ? 0 : to_color_acc_pplout;
 assign from_dir = next_pixel_pplout ? 2'b0 : to_dir_pplout;
-//assign block_p = next_pixel_pplout ? p_pos / TEXTURE_RES : to_block_p_pplout;
-//assign hit_p = next_pixel_pplout ? p_pos : to_hit_p_pplout;
-//assign start_p = next_pixel_pplout ? p_pos : start_p_pplout;
-//assign end_p = next_pixel_pplout ? vp_target : end_p_pplout;
+
+assign block_p_x = next_pixel_pplout ? p_pos_x / `TEXTURE_RES  : to_block_p_pplout_x;
+assign block_p_y = next_pixel_pplout ? p_pos_y / `TEXTURE_RES  : to_block_p_pplout_y;
+assign block_p_z = next_pixel_pplout ? p_pos_z / `TEXTURE_RES  : to_block_p_pplout_z;
+assign hit_p_x = next_pixel_pplout ? p_pos_x : to_hit_p_pplout_x;
+assign hit_p_y = next_pixel_pplout ? p_pos_y : to_hit_p_pplout_y;
+assign hit_p_z = next_pixel_pplout ? p_pos_z : to_hit_p_pplout_z;
+
+assign start_p_x = next_pixel_pplout ? p_pos_x : start_p_pplout_x;
+assign start_p_y = next_pixel_pplout ? p_pos_y : start_p_pplout_y;
+assign start_p_z = next_pixel_pplout ? p_pos_z : start_p_pplout_z;
+assign end_p_x = next_pixel_pplout ? vp_target_x : end_p_pplout_x;
+assign end_p_y = next_pixel_pplout ? vp_target_y : end_p_pplout_y;
+assign end_p_z = next_pixel_pplout ? vp_target_z : end_p_pplout_z;
 assign is_behind = next_pixel_pplout ? 1'b0 : to_is_behind_pplout;
 
 endmodule
