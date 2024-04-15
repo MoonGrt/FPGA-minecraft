@@ -7,7 +7,7 @@ ANGLE_RADIUS = 225;
 
 % 玩家数据
 p_pos = [1.1, 1.2, 1.3];
-p_angle = [60, 120];
+p_angle = [-60, -120];
 
 
 % 创建一个三维坐标系
@@ -55,12 +55,10 @@ hit_P = p_pos;
 scatter3(block_p(1)*TEXTURE_RES, block_p(2)*TEXTURE_RES, block_p(3)*TEXTURE_RES, 10, 'filled', 'MarkerFaceColor', 'b');
 next_block_p = [0, 0, 0];
 for i=1:1:3
-    if end_p(i) == start_p(i)
+    if end_p(i) <= start_p(i)
         next_block_p(i) = block_p(i);
-    elseif end_p(i) > start_p(i)
-        next_block_p(i) = block_p(i) + 1;
     else
-        next_block_p(i) = block_p(i) - 1;
+        next_block_p(i) = block_p(i) + 1;
     end
 end
 edge = [next_block_p(1)*TEXTURE_RES, next_block_p(2)*TEXTURE_RES, next_block_p(3)*TEXTURE_RES];
