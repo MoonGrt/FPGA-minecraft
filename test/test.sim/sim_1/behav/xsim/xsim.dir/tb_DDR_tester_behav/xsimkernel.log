@@ -1,0 +1,4 @@
+Running: xsim.dir/tb_DDR_tester_behav/xsimk.exe -simmode gui -wdb tb_DDR_tester_behav.wdb -simrunnum 0 -socket 11036
+Design successfully loaded
+Design Loading Memory Usage: 7096 KB (Peak: 7096 KB)
+Design Loading CPU Usage: 15 ms
