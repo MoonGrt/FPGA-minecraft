@@ -2,3 +2,6 @@ Running: xsim.dir/tb_DDR_tester_behav/xsimk.exe -simmode gui -wdb tb_DDR_tester_
 Design successfully loaded
 Design Loading Memory Usage: 7096 KB (Peak: 7096 KB)
 Design Loading CPU Usage: 15 ms
+Simulation completed
+Simulation Memory Usage: 7896 KB (Peak: 7896 KB)
+Simulation CPU Usage: 733 ms
