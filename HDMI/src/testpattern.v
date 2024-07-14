@@ -16,34 +16,34 @@
 
 module testpattern
 (
-	input              I_pxl_clk   ,//pixel clock
-    input              I_rst_n     ,//low active 
-    input      [2:0]   I_mode      ,//data select
-    input      [7:0]   I_single_r  ,
-    input      [7:0]   I_single_g  ,
-    input      [7:0]   I_single_b  ,
-    input      [11:0]  I_h_total   ,//hor total time 
-    input      [11:0]  I_h_sync    ,//hor sync time
-    input      [11:0]  I_h_bporch  ,//hor back porch
-    input      [11:0]  I_h_res     ,//hor resolution
-    input      [11:0]  I_v_total   ,//ver total time 
-    input      [11:0]  I_v_sync    ,//ver sync time  
-    input      [11:0]  I_v_bporch  ,//ver back porch  
-    input      [11:0]  I_v_res     ,//ver resolution 
-    input              I_hs_pol    ,//HS polarity , 0:???????1????????
-    input              I_vs_pol    ,//VS polarity , 0:???????1????????
-    output             O_de        ,   
-    output reg         O_hs        ,//??????
-    output reg         O_vs        ,//??????
-    output     [7:0]   O_data_r    ,    
-    output     [7:0]   O_data_g    ,
-    output     [7:0]   O_data_b    
+	input              I_pxl_clk , // pixel clock
+    input              I_rst_n   , // low active 
+    input      [2:0]   I_mode    , // data select
+    input      [7:0]   I_single_r,
+    input      [7:0]   I_single_g,
+    input      [7:0]   I_single_b,
+    input      [11:0]  I_h_total , // hor total time 
+    input      [11:0]  I_h_sync  , // hor sync time
+    input      [11:0]  I_h_bporch, // hor back porch
+    input      [11:0]  I_h_res   , // hor resolution
+    input      [11:0]  I_v_total , // ver total time
+    input      [11:0]  I_v_sync  , // ver sync time
+    input      [11:0]  I_v_bporch, // ver back porch
+    input      [11:0]  I_v_res   , // ver resolution
+    input              I_hs_pol  , // HS polarity , 0:???????1????????
+    input              I_vs_pol  , // VS polarity , 0:???????1????????
+    output             O_de      ,   
+    output reg         O_hs      , // ??????
+    output reg         O_vs      , // ??????
+    output     [7:0]   O_data_r  ,    
+    output     [7:0]   O_data_g  ,
+    output     [7:0]   O_data_b  
 ); 
 
 //====================================================
-localparam N = 5; //delay N clocks
+localparam N = 5; // delay N clocks
 
-localparam	WHITE	= {8'd255 , 8'd255 , 8'd255 };//{B,G,R}
+localparam	WHITE	= {8'd255 , 8'd255 , 8'd255 }; // {B,G,R}
 localparam	YELLOW	= {8'd0   , 8'd255 , 8'd255 };
 localparam	CYAN	= {8'd255 , 8'd255 , 8'd0   };
 localparam	GREEN	= {8'd0   , 8'd255 , 8'd0   };
@@ -53,16 +53,16 @@ localparam	BLUE	= {8'd255 , 8'd0   , 8'd0   };
 localparam	BLACK	= {8'd0   , 8'd0   , 8'd0   };
   
 //====================================================
-reg  [11:0]   V_cnt     ;
-reg  [11:0]   H_cnt     ;
-              
-wire          Pout_de_w    ;                          
-wire          Pout_hs_w    ;
-wire          Pout_vs_w    ;
+reg  [11:0]   V_cnt;
+reg  [11:0]   H_cnt;
 
-reg  [N-1:0]  Pout_de_dn   ;                          
-reg  [N-1:0]  Pout_hs_dn   ;
-reg  [N-1:0]  Pout_vs_dn   ;
+wire          Pout_de_w;
+wire          Pout_hs_w;
+wire          Pout_vs_w;
+
+reg  [N-1:0]  Pout_de_dn;
+reg  [N-1:0]  Pout_hs_dn;
+reg  [N-1:0]  Pout_vs_dn;
 
 //----------------------------
 wire 		  De_pos;
@@ -100,10 +100,10 @@ wire [23:0]   Single_color;
 wire [23:0]   Data_sel;
 
 //-------------------------------
-reg  [23:0]   Data_tmp/*synthesis syn_keep=1*/;
+reg  [23:0]   Data_tmp; /* synthesis syn_keep=1 */
 
 //==============================================================================
-//Generate HS, VS, DE signals
+// Generate HS, VS, DE signals
 always@(posedge I_pxl_clk or negedge I_rst_n)
 begin
 	if(!I_rst_n)
@@ -132,9 +132,9 @@ end
 
 //-------------------------------------------------------------
 assign  Pout_de_w = ((H_cnt>=(I_h_sync+I_h_bporch))&(H_cnt<=(I_h_sync+I_h_bporch+I_h_res-1'b1)))&
-                    ((V_cnt>=(I_v_sync+I_v_bporch))&(V_cnt<=(I_v_sync+I_v_bporch+I_v_res-1'b1))) ;
-assign  Pout_hs_w =  ~((H_cnt>=12'd0) & (H_cnt<=(I_h_sync-1'b1))) ;
-assign  Pout_vs_w =  ~((V_cnt>=12'd0) & (V_cnt<=(I_v_sync-1'b1))) ;  
+                    ((V_cnt>=(I_v_sync+I_v_bporch))&(V_cnt<=(I_v_sync+I_v_bporch+I_v_res-1'b1)));
+assign  Pout_hs_w = ~((H_cnt>=12'd0) & (H_cnt<=(I_h_sync-1'b1)));
+assign  Pout_vs_w = ~((V_cnt>=12'd0) & (V_cnt<=(I_v_sync-1'b1)));  
 
 //-------------------------------------------------------------
 always@(posedge I_pxl_clk or negedge I_rst_n)
@@ -153,7 +153,7 @@ begin
 		end
 end
 
-assign O_de = Pout_de_dn[4];//????????????
+assign O_de = Pout_de_dn[4]; // ????????????
 
 always@(posedge I_pxl_clk or negedge I_rst_n)
 begin
@@ -170,10 +170,10 @@ begin
 end
 
 //=================================================================================
-//Test Pattern
-assign De_pos	= !Pout_de_dn[1] & Pout_de_dn[0]; //de rising edge
-assign De_neg	= Pout_de_dn[1] && !Pout_de_dn[0];//de falling edge
-assign Vs_pos	= !Pout_vs_dn[1] && Pout_vs_dn[0];//vs rising edge
+// Test Pattern
+assign De_pos	= !Pout_de_dn[1] & Pout_de_dn[0];  // de rising edge
+assign De_neg	= Pout_de_dn[1] && !Pout_de_dn[0]; // de falling edge
+assign Vs_pos	= !Pout_vs_dn[1] && Pout_vs_dn[0]; // vs rising edge
 
 always @(posedge I_pxl_clk or negedge I_rst_n)
 begin
@@ -200,14 +200,14 @@ begin
 end
 
 //---------------------------------------------------
-//Color bar
+// Color bar
 //---------------------------------------------------
 always @(posedge I_pxl_clk or negedge I_rst_n)
 begin
 	if(!I_rst_n)
 		Color_trig_num <= 12'd0;
 	else if (Pout_de_dn[1] == 1'b0)
-		Color_trig_num <= I_h_res[11:3]; //8?????????
+		Color_trig_num <= I_h_res[11:3]; // 8?????????
 	else if ((Color_trig == 1'b1) && (Pout_de_dn[1] == 1'b1))
 		Color_trig_num <= Color_trig_num + I_h_res[11:3];
 	else
@@ -253,11 +253,11 @@ begin
 			default	:	Color_bar	<=	BLACK  ;
 		endcase
 	else
-		Color_bar	<=	BLACK  ;
+		Color_bar <= BLACK ;
 end
 
 //---------------------------------------------------
-//Net grid
+// Net grid
 //---------------------------------------------------
 always @(posedge I_pxl_clk or negedge I_rst_n)
 begin
@@ -287,18 +287,18 @@ begin
 		Net_grid <= 24'd0;
 	else if(Pout_de_dn[2] == 1'b1)
 		case(Net_pos)
-			2'b00	:	Net_grid	<=	BLACK  ;
-			2'b01	:	Net_grid	<=	RED    ;
-			2'b10	:	Net_grid	<=	RED    ;
-			2'b11	:	Net_grid	<=	RED    ;
-			default	:	Net_grid	<=	BLACK  ;
+			2'b00	: Net_grid <= BLACK;
+			2'b01	: Net_grid <= RED  ;
+			2'b10	: Net_grid <= RED  ;
+			2'b11	: Net_grid <= RED  ;
+			default	: Net_grid <= BLACK;
 		endcase
 	else
-		Net_grid	<=	BLACK  ;
+		Net_grid	<=	BLACK;
 end
 
 //---------------------------------------------------
-//Gray
+// Gray
 //---------------------------------------------------
 always @(posedge I_pxl_clk or negedge I_rst_n)
 begin
@@ -317,15 +317,15 @@ begin
 end
 
 //---------------------------------------------------
-//Single color
+// Single color
 //---------------------------------------------------
 assign Single_color = {I_single_b,I_single_g,I_single_r};
 
 //============================================================
-assign Data_sel = (I_mode[2:0] == 3'b000) ? Color_bar		: 
-                  (I_mode[2:0] == 3'b001) ? Net_grid 		: 
-                  (I_mode[2:0] == 3'b010) ? Gray_d1    		: 
-				  (I_mode[2:0] == 3'b011) ? Single_color	: BLUE;
+assign Data_sel = (I_mode[2:0] == 3'b000) ? Color_bar	: 
+                  (I_mode[2:0] == 3'b001) ? Net_grid 	: 
+                  (I_mode[2:0] == 3'b010) ? Gray_d1    	: 
+				  (I_mode[2:0] == 3'b011) ? Single_color: BLUE;
 
 //---------------------------------------------------
 always @(posedge I_pxl_clk or negedge I_rst_n)
@@ -340,5 +340,4 @@ assign O_data_r = Data_tmp[ 7: 0];
 assign O_data_g = Data_tmp[15: 8];
 assign O_data_b = Data_tmp[23:16];
 
-endmodule       
-              
+endmodule

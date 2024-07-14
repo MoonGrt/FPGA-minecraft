@@ -1,4 +1,3 @@
-//
 //Written by GowinSynthesis
 //Product Version "GowinSynthesis V1.9.7.02Beta"
 //Thu Feb 25 15:36:12 2021
