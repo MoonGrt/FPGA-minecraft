@@ -15,7 +15,7 @@
 	</a>
 <h3 align="center">FPGA-minecraft</h3>
 	<p align="center">
-	This FPGA project involves the development of a Minecraft game entirely in hardware. The game enables players to place and break blocks, move, and fly. It utilizes a rendering pipeline to calculate the color of each pixel, ultimately displaying the generated frames on an HDMI screen. This hardware-based approach ensures efficient real-time rendering and interaction within the game environment.
+	This FPGA project involves the development of a Minecraft game entirely in hardware. The game enables players to place and break blocks, move, and fly. It utilizes a rendering pipeline to calculate the color of each pixel, ultimately displaying the generated frames on an HDMI screen. This hardware-based approach ensures efficient real-time rendering and interaction within the game environment. 
 	<br />
 	<a href="https://github.com/MoonGrt/FPGA-minecraft"><strong>Explore the docs »</strong></a>
 	<br />
@@ -41,11 +41,6 @@
   </ol>
 </details>
 
-
-<!-- FILE TREE -->
-## File Tree
-
-```
 └─ Project
   ├─ LICENSE
   ├─ README.md
@@ -95,10 +90,6 @@
     ├─ textures.mi
     ├─ xy_map.coe
     └─ xy_map.mi
-
-```
-
-
 <!-- CONTRIBUTING -->
 ## Contributing
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.

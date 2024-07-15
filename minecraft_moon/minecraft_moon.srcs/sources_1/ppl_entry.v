@@ -42,7 +42,6 @@ wire [31:0] vp_target_x, vp_target_y, vp_target_z;
 wire [31:0] towards_h_x, towards_h_y;
 
 
-
 // State Machine
 always @(posedge clk_ppl or posedge rst) begin
     if (rst) begin
