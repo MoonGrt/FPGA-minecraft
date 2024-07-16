@@ -14,8 +14,7 @@
 //   1.0   | 24-Sep-2009 | Caojie  |    initial
 // --------------------------------------------------------------------
 
-module testpattern
-(
+module testpattern (
 	input              I_pxl_clk , // pixel clock
     input              I_rst_n   , // low active 
     input      [2:0]   I_mode    , // data select
@@ -104,8 +103,7 @@ reg  [23:0]   Data_tmp; /* synthesis syn_keep=1 */
 
 //==============================================================================
 // Generate HS, VS, DE signals
-always@(posedge I_pxl_clk or negedge I_rst_n)
-begin
+always@(posedge I_pxl_clk or negedge I_rst_n) begin
 	if(!I_rst_n)
 		V_cnt <= 12'd0;
 	else     
@@ -120,8 +118,7 @@ begin
 end
 
 //-------------------------------------------------------------    
-always @(posedge I_pxl_clk or negedge I_rst_n)
-begin
+always @(posedge I_pxl_clk or negedge I_rst_n) begin
 	if(!I_rst_n)
 		H_cnt <=  12'd0; 
 	else if(H_cnt >= (I_h_total-1'b1))
@@ -137,35 +134,29 @@ assign  Pout_hs_w = ~((H_cnt>=12'd0) & (H_cnt<=(I_h_sync-1'b1)));
 assign  Pout_vs_w = ~((V_cnt>=12'd0) & (V_cnt<=(I_v_sync-1'b1)));  
 
 //-------------------------------------------------------------
-always@(posedge I_pxl_clk or negedge I_rst_n)
-begin
-	if(!I_rst_n)
-		begin
-			Pout_de_dn  <= {N{1'b0}};                          
-			Pout_hs_dn  <= {N{1'b1}};
-			Pout_vs_dn  <= {N{1'b1}}; 
+always@(posedge I_pxl_clk or negedge I_rst_n) begin
+	if(!I_rst_n) begin
+			Pout_de_dn <= {N{1'b0}};
+			Pout_hs_dn <= {N{1'b1}};
+			Pout_vs_dn <= {N{1'b1}}; 
 		end
-	else 
-		begin
-			Pout_de_dn  <= {Pout_de_dn[N-2:0],Pout_de_w};                          
-			Pout_hs_dn  <= {Pout_hs_dn[N-2:0],Pout_hs_w};
-			Pout_vs_dn  <= {Pout_vs_dn[N-2:0],Pout_vs_w}; 
+	else begin
+			Pout_de_dn <= {Pout_de_dn[N-2:0],Pout_de_w};
+			Pout_hs_dn <= {Pout_hs_dn[N-2:0],Pout_hs_w};
+			Pout_vs_dn <= {Pout_vs_dn[N-2:0],Pout_vs_w}; 
 		end
 end
 
 assign O_de = Pout_de_dn[4]; // ????????????
 
-always@(posedge I_pxl_clk or negedge I_rst_n)
-begin
-	if(!I_rst_n)
-		begin                        
-			O_hs  <= 1'b1;
-			O_vs  <= 1'b1; 
+always@(posedge I_pxl_clk or negedge I_rst_n) begin
+	if(!I_rst_n) begin
+			O_hs <= 1'b1;
+			O_vs <= 1'b1; 
 		end
-	else 
-		begin                         
-			O_hs  <= I_hs_pol ? ~Pout_hs_dn[3] : Pout_hs_dn[3] ;
-			O_vs  <= I_vs_pol ? ~Pout_vs_dn[3] : Pout_vs_dn[3] ;
+	else begin
+			O_hs <= I_hs_pol ? ~Pout_hs_dn[3] : Pout_hs_dn[3] ;
+			O_vs <= I_vs_pol ? ~Pout_vs_dn[3] : Pout_vs_dn[3] ;
 		end
 end
 
@@ -175,8 +166,7 @@ assign De_pos	= !Pout_de_dn[1] & Pout_de_dn[0];  // de rising edge
 assign De_neg	= Pout_de_dn[1] && !Pout_de_dn[0]; // de falling edge
 assign Vs_pos	= !Pout_vs_dn[1] && Pout_vs_dn[0]; // vs rising edge
 
-always @(posedge I_pxl_clk or negedge I_rst_n)
-begin
+always @(posedge I_pxl_clk or negedge I_rst_n) begin
 	if(!I_rst_n)
 		De_hcnt <= 12'd0;
 	else if (De_pos == 1'b1)
@@ -187,8 +177,7 @@ begin
 		De_hcnt <= De_hcnt;
 end
 
-always @(posedge I_pxl_clk or negedge I_rst_n)
-begin
+always @(posedge I_pxl_clk or negedge I_rst_n) begin
 	if(!I_rst_n) 
 		De_vcnt <= 12'd0;
 	else if (Vs_pos == 1'b1)
@@ -202,8 +191,7 @@ end
 //---------------------------------------------------
 // Color bar
 //---------------------------------------------------
-always @(posedge I_pxl_clk or negedge I_rst_n)
-begin
+always @(posedge I_pxl_clk or negedge I_rst_n) begin
 	if(!I_rst_n)
 		Color_trig_num <= 12'd0;
 	else if (Pout_de_dn[1] == 1'b0)
@@ -214,8 +202,7 @@ begin
 		Color_trig_num <= Color_trig_num;
 end
 
-always @(posedge I_pxl_clk or negedge I_rst_n)
-begin
+always @(posedge I_pxl_clk or negedge I_rst_n) begin
 	if(!I_rst_n)
 		Color_trig <= 1'b0;
 	else if (De_hcnt == (Color_trig_num-1'b1)) 
@@ -224,8 +211,7 @@ begin
 		Color_trig <= 1'b0;
 end
 
-always @(posedge I_pxl_clk or negedge I_rst_n)
-begin
+always @(posedge I_pxl_clk or negedge I_rst_n) begin
 	if(!I_rst_n)
 		Color_cnt <= 3'd0;
 	else if (Pout_de_dn[1] == 1'b0)
@@ -236,8 +222,7 @@ begin
 		Color_cnt <= Color_cnt;
 end
 
-always @(posedge I_pxl_clk or negedge I_rst_n)
-begin
+always @(posedge I_pxl_clk or negedge I_rst_n) begin
 	if(!I_rst_n)
 		Color_bar <= 24'd0;
 	else if(Pout_de_dn[2] == 1'b1)
@@ -259,8 +244,7 @@ end
 //---------------------------------------------------
 // Net grid
 //---------------------------------------------------
-always @(posedge I_pxl_clk or negedge I_rst_n)
-begin
+always @(posedge I_pxl_clk or negedge I_rst_n) begin
 	if(!I_rst_n)
 		Net_h_trig <= 1'b0;
 	else if (((De_hcnt[4:0] == 5'd0) || (De_hcnt == (I_h_res-1'b1))) && (Pout_de_dn[1] == 1'b1))
@@ -269,8 +253,7 @@ begin
 		Net_h_trig <= 1'b0;
 end
 
-always @(posedge I_pxl_clk or negedge I_rst_n)
-begin
+always @(posedge I_pxl_clk or negedge I_rst_n) begin
 	if(!I_rst_n)
 		Net_v_trig <= 1'b0;
 	else if (((De_vcnt[4:0] == 5'd0) || (De_vcnt == (I_v_res-1'b1))) && (Pout_de_dn[1] == 1'b1))
@@ -281,8 +264,7 @@ end
 
 assign Net_pos = {Net_v_trig,Net_h_trig};
 
-always @(posedge I_pxl_clk or negedge I_rst_n)
-begin
+always @(posedge I_pxl_clk or negedge I_rst_n) begin
 	if(!I_rst_n)
 		Net_grid <= 24'd0;
 	else if(Pout_de_dn[2] == 1'b1)
@@ -300,16 +282,14 @@ end
 //---------------------------------------------------
 // Gray
 //---------------------------------------------------
-always @(posedge I_pxl_clk or negedge I_rst_n)
-begin
+always @(posedge I_pxl_clk or negedge I_rst_n) begin
 	if(!I_rst_n)
 		Gray <= 24'd0;
 	else
 		Gray <= {De_hcnt[7:0],De_hcnt[7:0],De_hcnt[7:0]};
 end
 
-always @(posedge I_pxl_clk or negedge I_rst_n)
-begin
+always @(posedge I_pxl_clk or negedge I_rst_n) begin
 	if(!I_rst_n)
 		Gray_d1 <= 24'd0;
 	else
@@ -319,17 +299,16 @@ end
 //---------------------------------------------------
 // Single color
 //---------------------------------------------------
-assign Single_color = {I_single_b,I_single_g,I_single_r};
+assign Single_color = {I_single_b, I_single_g, I_single_r};
 
 //============================================================
-assign Data_sel = (I_mode[2:0] == 3'b000) ? Color_bar	: 
-                  (I_mode[2:0] == 3'b001) ? Net_grid 	: 
-                  (I_mode[2:0] == 3'b010) ? Gray_d1    	: 
+assign Data_sel = (I_mode[2:0] == 3'b000) ? Color_bar: 
+                  (I_mode[2:0] == 3'b001) ? Net_grid: 
+                  (I_mode[2:0] == 3'b010) ? Gray_d1: 
 				  (I_mode[2:0] == 3'b011) ? Single_color: BLUE;
 
 //---------------------------------------------------
-always @(posedge I_pxl_clk or negedge I_rst_n)
-begin
+always @(posedge I_pxl_clk or negedge I_rst_n) begin
 	if(!I_rst_n) 
 		Data_tmp <= 24'd0;
 	else

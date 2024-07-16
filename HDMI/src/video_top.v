@@ -21,7 +21,7 @@
 // ----------------------------------------------------------------------------------
 // ==============0ooo===================================================0ooo===========
 
-module video_top(
+module video_top (
     input         I_clk           , // 27Mhz
     input         I_rst_n         ,
     output [3:0]  O_led           ,
@@ -55,8 +55,7 @@ wire pix_clk;
 
 //===================================================
 // LED test
-always @(posedge I_clk or negedge I_rst_n) //I_clk
-begin
+always @(posedge I_clk or negedge I_rst_n) begin //I_clk
     if(!I_rst_n)
         run_cnt <= 32'd0;
     else if(run_cnt >= 32'd27_000_000)
@@ -73,8 +72,7 @@ assign  O_led[3] = ~I_rst_n;
 
 //===========================================================================
 // testpattern
-testpattern testpattern_inst
-(
+testpattern testpattern_inst (
     .I_pxl_clk   (pix_clk           ), // pixel clock
     .I_rst_n     (hdmi4_rst_n       ), // low active 
     .I_mode      ({1'b0,cnt_vs[9:8]}), // data select
@@ -99,13 +97,11 @@ testpattern testpattern_inst
     .O_data_b    (tp0_data_b        )
 );
 
-always@(posedge pix_clk)
-begin
+always@(posedge pix_clk) begin
     vs_r <= tp0_vs_in;
 end
 
-always@(posedge pix_clk or negedge hdmi4_rst_n)
-begin
+always@(posedge pix_clk or negedge hdmi4_rst_n) begin
     if(!hdmi4_rst_n)
         cnt_vs <= 0;
     else if(vs_r && !tp0_vs_in) // vs24 falling edge
@@ -131,7 +127,7 @@ defparam u_clkdiv.DIV_MODE = "5";
 defparam u_clkdiv.GSREN = "false";
 assign hdmi4_rst_n = I_rst_n & pll_lock;
 
-DVI_TX_Top DVI_TX_Top_inst(
+DVI_TX_Top DVI_TX_Top_inst (
     .I_rst_n       (hdmi4_rst_n  ), // asynchronous reset, low active
     .I_serial_clk  (serial_clk   ),
     .I_rgb_clk     (pix_clk      ), // pixel clock
