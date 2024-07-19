@@ -15,7 +15,7 @@
 	</a>
 <h3 align="center">FPGA-minecraft</h3>
 	<p align="center">
-	This FPGA project involves the development of a Minecraft game entirely in hardware. The game enables players to place and break blocks, move, and fly. It utilizes a rendering pipeline to calculate the color of each pixel, ultimately displaying the generated frames on an HDMI screen. This hardware-based approach ensures efficient real-time rendering and interaction within the game environment. 
+	This FPGA project involves the development of a Minecraft game entirely in hardware. The game enables players to place and break blocks, move, and fly. It utilizes a rendering pipeline to calculate the color of each pixel, ultimately displaying the generated frames on an HDMI screen. This hardware-based approach ensures efficient real-time rendering and interaction within the game environment.
 	<br />
 	<a href="https://github.com/MoonGrt/FPGA-minecraft"><strong>Explore the docs »</strong></a>
 	<br />
@@ -41,6 +41,11 @@
   </ol>
 </details>
 
+
+<!-- FILE TREE -->
+## File Tree
+
+```
 └─ Project
   ├─ LICENSE
   ├─ README.md
@@ -49,15 +54,7 @@
   │   ├─ dk_video.cst
   │   ├─ dk_video.sdc
   │   ├─ testpattern.v
-  │   ├─ video_top.v
-  │   ├─ /dvi_tx/
-  │   │ ├─ dvi_tx.ipc
-  │   │ ├─ dvi_tx.v
-  │   │ └─ dvi_tx.vo
-  │   └─ /gowin_rpll/
-  │     ├─ TMDS_rPLL.ipc
-  │     ├─ TMDS_rPLL.mod
-  │     └─ TMDS_rPLL.v
+  │   └─ video_top.v
   ├─ /images/
   ├─ /Matlab/
   │ ├─ sight_line.m
@@ -66,6 +63,9 @@
   │ └─ test2.m
   ├─ /minecraft_moon/
   │ └─ /minecraft_moon.srcs/
+  │   ├─ /sim_1/
+  │   │ └─ /new/
+  │   │   └─ test.v
   │   └─ /sources_1/
   │     ├─ angle_relative.v
   │     ├─ angle_to_coord.v
@@ -82,14 +82,12 @@
   │     └─ viewport_scanner.v
   ├─ /test/
   └─ /Tool/
-    ├─ 0.png
-    ├─ 18.png
-    ├─ c.v
     ├─ CircleMapping.py
-    ├─ png_to_mi.py
-    ├─ textures.mi
-    ├─ xy_map.coe
-    └─ xy_map.mi
+    └─ png_to_mi.py
+
+```
+
+
 <!-- CONTRIBUTING -->
 ## Contributing
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
