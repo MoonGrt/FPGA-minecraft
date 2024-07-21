@@ -43,8 +43,8 @@ reg [INT_RADIX-1:0] current_angle_reg_x, current_angle_next_x;
 reg [INT_RADIX-1:0] current_angle_reg_y, current_angle_next_y;
 
 frequency_divider #(
-    .PERIOD(PPL_FREQ / BTN_UPDATE_FREQ)
-) btn_freq_div (
+    .PERIOD(PPL_FREQ / BTN_UPDATE_FREQ))
+btn_freq_div (
     .clk(clk),
     .rst(rst),
     .en(enable),
@@ -52,8 +52,8 @@ frequency_divider #(
 );
 
 frequency_divider #(
-    .PERIOD(PPL_FREQ / CONT_UPDATE_FREQ)
-) ctrl_freq_div (
+    .PERIOD(PPL_FREQ / CONT_UPDATE_FREQ))
+ctrl_freq_div (
     .clk(clk),
     .rst(rst),
     .en(enable),
