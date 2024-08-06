@@ -10,21 +10,21 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-	<a href="https://github.com/MoonGrt/FPGA-minecraft">
+	<a href="https://github.com/MoonGrt/FPGA-Minecraft">
 	<img src="images/logo.png" alt="Logo" width="80" height="80">
 	</a>
-<h3 align="center">FPGA-minecraft</h3>
+<h3 align="center">FPGA-Minecraft</h3>
 	<p align="center">
 	This FPGA project involves the development of a Minecraft game entirely in hardware. The game enables players to place and break blocks, move, and fly. It utilizes a rendering pipeline to calculate the color of each pixel, ultimately displaying the generated frames on an HDMI screen. This hardware-based approach ensures efficient real-time rendering and interaction within the game environment.
 	<br />
-	<a href="https://github.com/MoonGrt/FPGA-minecraft"><strong>Explore the docs »</strong></a>
+	<a href="https://github.com/MoonGrt/FPGA-Minecraft"><strong>Explore the docs »</strong></a>
 	<br />
 	<br />
-	<a href="https://github.com/MoonGrt/FPGA-minecraft">View Demo</a>
+	<a href="https://github.com/MoonGrt/FPGA-Minecraft">View Demo</a>
 	·
-	<a href="https://github.com/MoonGrt/FPGA-minecraft/issues">Report Bug</a>
+	<a href="https://github.com/MoonGrt/FPGA-Minecraft/issues">Report Bug</a>
 	·
-	<a href="https://github.com/MoonGrt/FPGA-minecraft/issues">Request Feature</a>
+	<a href="https://github.com/MoonGrt/FPGA-Minecraft/issues">Request Feature</a>
 	</p>
 </div>
 
@@ -54,7 +54,15 @@
   │   ├─ dk_video.cst
   │   ├─ dk_video.sdc
   │   ├─ testpattern.v
-  │   └─ video_top.v
+  │   ├─ video_top.v
+  │   ├─ /dvi_tx/
+  │   │ ├─ dvi_tx.ipc
+  │   │ ├─ dvi_tx.v
+  │   │ └─ dvi_tx.vo
+  │   └─ /gowin_rpll/
+  │     ├─ TMDS_rPLL.ipc
+  │     ├─ TMDS_rPLL.mod
+  │     └─ TMDS_rPLL.v
   ├─ /images/
   ├─ /Matlab/
   │ ├─ sight_line.m
@@ -82,8 +90,14 @@
   │     └─ viewport_scanner.v
   ├─ /test/
   └─ /Tool/
+    ├─ 0.png
+    ├─ 18.png
+    ├─ c.v
     ├─ CircleMapping.py
-    └─ png_to_mi.py
+    ├─ png_to_mi.py
+    ├─ textures.mi
+    ├─ xy_map.coe
+    └─ xy_map.mi
 
 ```
 
@@ -129,14 +143,14 @@ Project Link: [MoonGrt/](https://github.com/MoonGrt/)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/MoonGrt/FPGA-minecraft.svg?style=for-the-badge
-[contributors-url]: https://github.com/MoonGrt/FPGA-minecraft/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/MoonGrt/FPGA-minecraft.svg?style=for-the-badge
-[forks-url]: https://github.com/MoonGrt/FPGA-minecraft/network/members
-[stars-shield]: https://img.shields.io/github/stars/MoonGrt/FPGA-minecraft.svg?style=for-the-badge
-[stars-url]: https://github.com/MoonGrt/FPGA-minecraft/stargazers
-[issues-shield]: https://img.shields.io/github/issues/MoonGrt/FPGA-minecraft.svg?style=for-the-badge
-[issues-url]: https://github.com/MoonGrt/FPGA-minecraft/issues
-[license-shield]: https://img.shields.io/github/license/MoonGrt/FPGA-minecraft.svg?style=for-the-badge
-[license-url]: https://github.com/MoonGrt/FPGA-minecraft/blob/master/LICENSE
+[contributors-shield]: https://img.shields.io/github/contributors/MoonGrt/FPGA-Minecraft.svg?style=for-the-badge
+[contributors-url]: https://github.com/MoonGrt/FPGA-Minecraft/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/MoonGrt/FPGA-Minecraft.svg?style=for-the-badge
+[forks-url]: https://github.com/MoonGrt/FPGA-Minecraft/network/members
+[stars-shield]: https://img.shields.io/github/stars/MoonGrt/FPGA-Minecraft.svg?style=for-the-badge
+[stars-url]: https://github.com/MoonGrt/FPGA-Minecraft/stargazers
+[issues-shield]: https://img.shields.io/github/issues/MoonGrt/FPGA-Minecraft.svg?style=for-the-badge
+[issues-url]: https://github.com/MoonGrt/FPGA-Minecraft/issues
+[license-shield]: https://img.shields.io/github/license/MoonGrt/FPGA-Minecraft.svg?style=for-the-badge
+[license-url]: https://github.com/MoonGrt/FPGA-Minecraft/blob/master/LICENSE
 
